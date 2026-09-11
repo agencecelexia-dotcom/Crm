@@ -169,6 +169,14 @@ l'affectation. Exiger en plus une signature à l'entrée obligerait l'artisan à
 écrire un client HTTP dédié au lieu d'appeler PostgREST — cher payé pour une
 sécurité que le modèle du portail assure déjà.
 
+**Les mécaniques internes ne sont pas publiques.** `0129` a retiré à la clé
+publique les fonctions internes du pont (`pont_chantier_json`, `pont_enfiler`,
+la livraison, le battement) : avant elle, un identifiant d'affectation suffisait
+à lire les coordonnées d'un client, et n'importe qui pouvait glisser un faux
+événement que nous aurions signé. PostgreSQL rend toute nouvelle fonction
+publique par défaut ; ce défaut est désormais inversé — une fonction destinée à
+la clé publique doit le déclarer par un `grant … to anon` explicite.
+
 **Nos données sortent de chez nous** : nom, téléphone et adresse du particulier
 partent chez un tiers. Cela doit figurer au contrat artisan — ce n'est pas un
 détail technique.
